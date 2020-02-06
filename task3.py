@@ -40,10 +40,10 @@ for k in range(len(users)):
         teach.append(users[k])
 #print(teach)
 
-a = [] #Только уроки физики
+physic = [] #Только уроки физики
 for k in range(len(les)):
     if str(les[k][2]) == 'phys':
-        a.append(les[k])
+        physic.append(les[k])
 for k in range(len(les)):
     les[k][3] = les[k][3].split()
     #print(les[k][3])
@@ -51,16 +51,16 @@ b = []
 i = 0
 date = []
 for k in range(len(a)):
-    date.append(a[k][3][0])
+    date.append(physic[k][3][0])
 date = set(date)
 date = list(date)
 date.sort()
 #print(date)
 d = [[],[],[],[],[],[],[],[],[],[]] # массив с уроками за каждый день
 for k in range(len(date)):
-    for i in range(len(a)):
-        if a[i][3][0] == date[k]:
-            d[k].append(a[i])
+    for i in range(len(physic)):
+        if physic[i][3][0] == date[k]:
+            d[k].append(physic[i])
 #print(d[0])
 event = []
 #for j in range(len)
@@ -79,7 +79,7 @@ for k in range(len(event)):
             teaevent = unique(teaevent)  #ID Учителей, которые преподавали в этот день (11 янв. например)
 print(teaevent) 
 
-#print(teach) # - Тут все чуваки, которые были на уроках 11 января
+#print(teach) # - Тут все люди, которые были на уроках 11 января
 #print(part)
 lesday = [] #- тут будут номера события,на которых были учителя
 for k in range(len(teaevent)):
