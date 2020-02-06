@@ -40,7 +40,7 @@ for k in range(len(users)):
         teach.append(users[k])
 #print(teach)
 
-a = []
+a = [] #Только уроки физики
 for k in range(len(les)):
     if str(les[k][2]) == 'phys':
         a.append(les[k])
@@ -70,21 +70,30 @@ for k in range(len(d)):
             event.append(part[i][1]) # - ID всех пользователей, которые были в этот день
 event = set(event)
 event = list(event)
+print(event)
 teaevent = []
 for k in range(len(event)):
     for i in range(len(teach)):
         if event[k] == teach[i][0]: #Если ID человека совпадает с ID учителя, то он учитель)))
             teaevent.append(event[k])
             teaevent = unique(teaevent)  #ID Учителей, которые преподавали в этот день (11 янв. например)
-#print(teaevent) 
+print(teaevent) 
 
 #print(teach) # - Тут все чуваки, которые были на уроках 11 января
 #print(part)
-lesday = [] #- тут будут уроки, которые вели учителя
+lesday = [] #- тут будут номера события,на которых были учителя
 for k in range(len(teaevent)):
+    for i in range(len(part)):
+        if part[i][1] == teaevent[k]: #Если ID учителя, который преподавал в этот день равен другому ID, значит вытягиваем номер события
+            lesday.append(part[i][0])
+            lesday = unique(lesday)
+numoflessons = []
+for k in range(len(lesday)):
     for i in range(len(d)):
-        if d[0][i][1] == teaevent[k]: #Если ID учителя, который преподавал в этот день равен другому ID, значит вытягиваем номер урока
-            lesday.append()
+        if lesday[k] == d[0][i][1]:
+            numoflessons.append(d[0][i][0])
+print(numoflessons)
+# Ответа пока нет, но я верю, что скоро он найдётся
 
 l.close
 q.close
