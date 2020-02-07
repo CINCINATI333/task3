@@ -46,6 +46,7 @@ for k in range(len(qua)):
     qua[k] = qua[k].split('|')
     qua[k][0] = qua[k][0].replace(' ','')
     qua[k][1] = qua[k][1].replace(' ','')
+
 output_array(qua, "quality", 20 )
 for k in range(len(part)):
     part[k] = part[k].split('|')
@@ -66,8 +67,47 @@ output_array(les, "lessons", 20 )
 
 #get info from db
 cur = connection.cursor()
-cur.execute( "select * from lessons" )
-output_array( cur, "SQL query", 20 )
+
+query = ""
+try:
+    for row in qua:
+        lesson_id = row[0]
+        mark = row[1]
+        if not mark:
+            mark = 0
+        query = "INSERT INTO `quality` (`lesson_id`, `tech_quality`) VALUES ('" + str(lesson_id) + "', " + str( mark ) + ")"
+        cur.execute( query )
+
+    for row in part:
+        event_id = row[0]
+        user_id = row[1]
+        query = "INSERT INTO `participant` (`event_id`, `user_id`) VALUES ('" + str(event_id) + "', '" + str( user_id ) + "')"
+        cur.execute( query )
+
+    for row in users:
+        user_id = row[0]
+        role = row[1]
+        query = "INSERT INTO `users` (`id`, `role`) VALUES ('" + str(user_id) + "', '" + str( role ) + "')"
+        cur.execute( query )
+
+    for row in les:
+        lesson_id = row[0]
+        event_id = row[1]
+        subject = row[2]
+        scheduled_time = row[3]
+        query = "INSERT INTO `lessons` ( `id`, `event_id`, `subject`, `scheduled_time`) VALUES ( '" + str( lesson_id ) + "', '" + str(event_id) + "', '" + str( subject ) + "', '" + str( scheduled_time ) + "')"
+        cur.execute( query )
+except Exception:
+    print( query )
+
+
+# delete all stuff
+# ----------------------
+# DELETE FROM `lessons`;
+# DELETE FROM `participant`;
+# DELETE FROM `quality`;
+# DELETE FROM `users`;
+
 
 # Завершаем подключение.
 cur.close()
