@@ -108,7 +108,6 @@ except Exception:
 # DELETE FROM `quality`;
 # DELETE FROM `users`;
 
-
 # Завершаем подключение.
 cur.close()
 connection.close()
